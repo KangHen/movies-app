@@ -1,0 +1,9 @@
+<ion-card>
+  <ion-img [src]="image" />
+  <ion-card-header>
+    <ion-card-title>{{ movie()?.titleText?.text }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{ movie()?.originalTitleText?.text }}
+  </ion-card-content>
+</ion-card>
