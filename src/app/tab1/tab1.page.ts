@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonProgressBar } from '@ionic/angular/standalone';
 import { MovieService } from '../services/movie.service';
 import { MovieCardComponent } from '../components/movie-card/movie-card.component';
+import { Movie } from '../types/movie.type';
 
 @Component({
   selector: 'app-tab1',
@@ -14,7 +15,7 @@ export class Tab1Page implements OnInit {
   private movieService = inject(MovieService);
 
   movies$ = this.movieService.getMovies({ limit: 10, startYear: 1990, endYear: new Date().getFullYear() });
-  movies = signal<Array<any>>([]);
+  movies = signal<Movie[]>([]);
 
   isLoading = signal(true);
 
@@ -23,10 +24,7 @@ export class Tab1Page implements OnInit {
   ngOnInit() {
     this.movies$.subscribe(({ results }) => {
       this.isLoading.set(false);
-
-      if (results) {
-        this.movies.set(results);
-      }
+      this.movies.set(results ?? []);
     });
   }
 }
